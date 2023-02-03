@@ -6,7 +6,7 @@
     system = "x86_64-linux";
     pkgs = (import nixpkgs { inherit system; config.allowUnfree = true; });
     in {
-      devShell.${system} = pkgs.mkShell {
+      devShell.${system} = pkgs.mkShellNoCC {
         buildInputs = with pkgs; [
           buildifier
           bazel_5

@@ -21,7 +21,9 @@ nixpkgs_git_repository(
 
 nixpkgs_cc_configure(
   repository = "@nixpkgs",
-  nix_file_content = "(import <nixpkgs> {}).gcc11",
+  nix_file = "//:nixpkgs.nix",
+  nix_file_deps = ["//:flake.lock"],
+  attribute_path = "gcc11",
   name = "nixpkgs_config_cc",
 )
 
