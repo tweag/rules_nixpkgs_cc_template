@@ -1,7 +1,8 @@
-import (let
-  lock =
-    (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.nixpkgs.locked;
-in fetchTarball {
-  url = "https://github.com/NixOS/nixpkgs/archive/" + lock.rev + ".tar.gz";
-  sha256 = lock.narHash;
-}) { }
+let
+  spec = builtins.fromJSON (builtins.readFile ./nixpkgs.json);
+  nixpkgs = fetchTarball {
+    url = "https://github.com/${spec.owner}/${spec.repo}/archive/${spec.rev}.tar.gz";
+    sha256 = spec.sha256;
+  };
+in
+import nixpkgs
